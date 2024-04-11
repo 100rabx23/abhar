@@ -10,7 +10,9 @@
 
 
 <p align="center">
-  <img src="https://i.ibb.co/GkBKBd1/home-automation-robo.jpg" alt="AI-Based Home Automation Robo">
+  
+<a href="https://ibb.co/R70z6Gp"><img src="https://i.ibb.co/fQp4NVY/Chassis-Bottom11.jpg" alt="Chassis-Bottom11" border="0"></a>
+
 </p>
 
 ### Introduction
