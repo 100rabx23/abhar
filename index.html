@@ -7,8 +7,57 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://webchat-styler-css.botpress.app/prod/f33d6771-de8e-45fe-94b7-fb1b6f4ef071/v94528/style.css">
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <style>
+        /* CSS for the container */
+        .container {
+            width: 45%; /* Adjust width as needed */
+            height: 100vh;
+            overflow: auto;
+            margin: 0 auto;
+            position: relative; /* Needed for absolute positioning of buttons */
+            float: left;
+        }
+        /* CSS for the zoom buttons */
+        .zoom-buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        /* CSS for the A-Frame scene */
+        a-scene {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
+     <div class="container">
+        <!-- Create an A-Frame scene -->
+        <a-scene>
+            <!-- Preload the OBJ and MTL files -->
+            <a-assets>
+                <a-asset-item id="model-obj" src="tinker.obj"></a-asset-item>
+                <a-asset-item id="model-mtl" src="obj.mtl"></a-asset-item>
+            </a-assets>
+
+            <!-- Display the 3D model -->
+            <a-entity id="model" obj-model="obj: #model-obj; mtl: #model-mtl" position="0 0 -8" scale="0.01 0.01 0.01"></a-entity>
+
+            <!-- Optional: Add lighting, camera, and other elements -->
+            <a-light type="ambient" color="#888"></a-light>
+            <a-camera position="0 1.6 0"></a-camera>
+        </a-scene>
+
+        <!-- Zoom buttons -->
+        <div class="zoom-buttons">
+            <button onclick="zoom('in')">Zoom In</button>
+            <button onclick="zoom('out')">Zoom Out</button>
+        </div>
+    </div>
     <!-- nav bar -->
     <nav class="header flex">
         <ul class="logo">
@@ -55,5 +104,46 @@
 
     <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
     <script src="https://mediafiles.botpress.cloud/16729c1b-2f57-4f56-b4c9-44e991cf96d5/webchat/config.js" defer></script>
+     <script>
+        function moveModel(direction) {
+            var model = document.getElementById('model');
+            var currentPosition = model.getAttribute('position');
+
+            switch (direction) {
+                case 'front':
+                    model.setAttribute('position', { x: currentPosition.x, y: currentPosition.y, z: currentPosition.z - 0.1 });
+                    break;
+                case 'back':
+                    model.setAttribute('position', { x: currentPosition.x, y: currentPosition.y, z: currentPosition.z + 0.1 });
+                    break;
+                case 'up':
+                    model.setAttribute('position', { x: currentPosition.x, y: currentPosition.y + 0.1, z: currentPosition.z });
+                    break;
+                case 'down':
+                    model.setAttribute('position', { x: currentPosition.x, y: currentPosition.y - 0.1, z: currentPosition.z });
+                    break;
+                case 'left':
+                    model.setAttribute('position', { x: currentPosition.x - 0.1, y: currentPosition.y, z: currentPosition.z });
+                    break;
+                case 'right':
+                    model.setAttribute('position', { x: currentPosition.x + 0.1, y: currentPosition.y, z: currentPosition.z });
+                    break;
+            }
+        }
+
+        function zoom(direction) {
+            var model = document.getElementById('model');
+            var currentScale = model.getAttribute('scale');
+
+            switch (direction) {
+                case 'in':
+                    model.setAttribute('scale', { x: currentScale.x * 1.1, y: currentScale.y * 1.1, z: currentScale.z * 1.1 });
+                    break;
+                case 'out':
+                    model.setAttribute('scale', { x: currentScale.x * 0.9, y: currentScale.y * 0.9, z: currentScale.z * 0.9 });
+                    break;
+            }
+        }
+    </script>
 </body>
 </html>
