@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Model Viewer</title>
+    <!-- Include A-Frame library -->
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <style>
+        /* CSS for the container */
+        .container {
+            width: 80%;
+            height: 60vh;
+            overflow: auto;
+            margin: 0 auto;
+            position: relative; /* Needed for absolute positioning of buttons */
+        }
+        /* CSS for the zoom buttons */
+        .zoom-buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        /* CSS for the A-Frame scene */
+        a-scene {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Create an A-Frame scene -->
+        <a-scene>
+            <!-- Preload the OBJ and MTL files -->
+            <a-assets>
+                <a-asset-item id="model-obj" src="tinker.obj"></a-asset-item>
+                <a-asset-item id="model-mtl" src="obj.mtl"></a-asset-item>
+            </a-assets>
+
+            <!-- Display the 3D model -->
+            <a-entity id="model" obj-model="obj: #model-obj; mtl: #model-mtl" position="0 0 -8" scale="0.01 0.01 0.01"></a-entity>
+
+            <!-- Optional: Add lighting, camera, and other elements -->
+            <a-light type="ambient" color="#888"></a-light>
+            <a-camera position="0 1.6 0"></a-camera>
+        </a-scene>
+
+        <!-- Zoom buttons -->
+        <div class="zoom-buttons">
+            <button onclick="zoom('in')">Zoom In</button>
+            <button onclick="zoom('out')">Zoom Out</button>
+        </div>
+    </div>
+
+    <!-- Buttons to control the position of the 3D model -->
+    <div style="text-align: center; margin-top: 20px;">
+        <button onclick="moveModel('front')">Front</button>
+        <button onclick="moveModel('back')">Back</button>
+        <button onclick="moveModel('up')">Up</button>
+        <button onclick="moveModel('down')">Down</button>
+        <button onclick="moveModel('left')">Left</button>
+        <button onclick="moveModel('right')">Right</button>
+    </div>
+
+    <!-- JavaScript to control the model's position and zoom -->
+    <script>
+        function moveModel(direction) {
+            var model = document.getElementById('model');
+            var currentPosition = model.getAttribute('position');
+
+            switch (direction) {
+                case 'front':
+                    model.setAttribute('position', { x: currentPosition.x, y: currentPosition.y, z: currentPosition.z - 0.1 });
+                    break;
+                case 'back':
+                    model.setAttribute('position', { x: currentPosition.x, y: currentPosition.y, z: currentPosition.z + 0.1 });
+                    break;
+                case 'up':
+                    model.setAttribute('position', { x: currentPosition.x, y: currentPosition.y + 0.1, z: currentPosition.z });
+                    break;
+                case 'down':
+                    model.setAttribute('position', { x: currentPosition.x, y: currentPosition.y - 0.1, z: currentPosition.z });
+                    break;
+                case 'left':
+                    model.setAttribute('position', { x: currentPosition.x - 0.1, y: currentPosition.y, z: currentPosition.z });
+                    break;
+                case 'right':
+                    model.setAttribute('position', { x: currentPosition.x + 0.1, y: currentPosition.y, z: currentPosition.z });
+                    break;
+            }
+        }
+
+        function zoom(direction) {
+            var model = document.getElementById('model');
+            var currentScale = model.getAttribute('scale');
+
+            switch (direction) {
+                case 'in':
+                    model.setAttribute('scale', { x: currentScale.x * 1.1, y: currentScale.y * 1.1, z: currentScale.z * 1.1 });
+                    break;
+                case 'out':
+                    model.setAttribute('scale', { x: currentScale.x * 0.9, y: currentScale.y * 0.9, z: currentScale.z * 0.9 });
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
