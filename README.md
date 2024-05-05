@@ -7,7 +7,7 @@
 
 ------------------------------------------------------------------------
 
-## AI-BASED HOME AUTOMATION ROBO
+## AI-BASED HOME AUTOMATION ROBO 
 
 
 <p align="center">
