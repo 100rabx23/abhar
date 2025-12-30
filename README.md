@@ -10,9 +10,7 @@
 ## AI-BASED HOME AUTOMATION ROBO      
 
 
-<p align="center">
-<a align="center" href="https://ibb.co/R70z6Gp"><img src="https://i.ibb.co/fQp4NVY/Chassis-Bottom11.jpg" alt="Chassis-Bottom11" border="0"></a>
-</p>
+
 
 ### Introduction
 
